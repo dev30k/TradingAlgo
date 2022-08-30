@@ -8,7 +8,8 @@
 //| Expert initialization function                                   |
 //+------------------------------------------------------------------+
 
-
+double lines[10][1];
+int row=0,col=0;
 
 int OnInit()
   {
@@ -26,6 +27,25 @@ int OnInit()
 //--- correct way of working in the "file sandbox"
    ResetLastError();
    if (iFile != -1) {
+       while(True) //loop through each cell
+        {
+          double temp = FileReadDouble(iFile); //read csv cell
+          if(FileIsEnding(iFile)) break; //FileIsEnding = End of File
+          lines[col][row]=temp; //save reading result to array
+          if(FileIsLineEnding(iFile)) //FileIsLineEnding = End of Line
+          {
+            col = 0; //reset col = 0 for the next row
+            row++; //next row
+          }
+          else
+          {
+            col++; //next col of the same row
+          }
+        }
+        FileClose(iFile);
+      
+   
+   
       
    }
         
